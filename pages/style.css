@@ -1,0 +1,32 @@
+/* Applies to the entire body of the HTML document (except where overridden by more specific
+selectors). */
+body {
+    margin: 25px;
+    background-color: #8dccda;
+    font-family: arial, sans-serif;
+    font-size: 14px;
+  }
+  
+  /* Applies to all <h1>...</h1> elements. */
+  h1 {
+    font-size: 35px;
+    font-weight: normal;
+    margin-top: 5px;
+    ;
+  }
+  
+  /* Applies to all elements with <... class="someclass"> specified. */
+  .someclass { color: #959df4; }
+  
+  /* Applies to the element with <... id="someid"> specified. */
+  #someid { color: #aa95f2; }
+
+ /*   Let's use these colors!
+ 
+ #90d6b9, #000000
+#8dccda, #000000
+#8eadee, #000000
+#959df4, #000000
+#aa95f2, #000000
+
+ */
