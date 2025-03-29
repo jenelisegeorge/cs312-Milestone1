@@ -40,7 +40,7 @@ Below the first table is a table with r+1 Rows and c+1 Columns where r and c are
 For the first column of each row you will enumerate it with its row number starting at the second row with "1". Use the below image for reference
 
 
-
+![](image-e0c7b7d2-d2f0-441f-9c50-bbb0b00f158b.png)
 
 Each of the remaining cells should be blank cells. They should support an On-Click behavior that in some way alerts the user to which cell they selected. It can be in an alert, a popup, a Console Log, or even changing the content of the cell. All this alert needs to say is the Row number and Column Label. For example if I click on the Cell in Column "AB" on Row 20 then there should be a message along the lines of "AB20"
 
