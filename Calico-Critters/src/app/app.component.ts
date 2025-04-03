@@ -4,10 +4,11 @@ import { HeaderComponent } from './header/header.component';
 import { AboutComponent } from './about/about.component';
 import { ColorComponent } from './color/color.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { MainComponent } from './main/main.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, AboutComponent, ColorComponent, HomepageComponent],
+  imports: [RouterOutlet, HeaderComponent, AboutComponent, ColorComponent, HomepageComponent, MainComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

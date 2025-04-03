@@ -1,0 +1,33 @@
+  
+h1 {
+    font-size: 35px;
+    font-weight: normal;
+    margin-top: 5px;
+    ;
+  }
+
+h1,h2,h3{
+    font-family: "Merriweather", serif;
+  }
+  
+#teamMembers{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
+
+.teamMember{
+  display: inline-block;
+  flex-grow: 1;
+  margin: 5px 20px;
+  padding: 5px 20px;
+}
+
+.teamMemberImage{
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.teamMemberParagraph{
+  text-align: center;
+}
