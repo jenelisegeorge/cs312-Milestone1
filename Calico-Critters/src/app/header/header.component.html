@@ -1,1 +1,21 @@
-<p>header works!</p>
+<div id="navbar">
+  <div id="company">
+    <img src="/logo/logo.png" alt="Team Logo" id="teamLogo" />
+    <h1>Calico Critters & Company</h1>
+  </div>
+
+  <div id="navbarItems">
+    @for (item of items; track $index){
+    <li>
+      <a
+        class="navbarLinks"
+        [routerLink]="item.routeLink"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <span class="navbarLabels">{{ item.label }}</span></a
+      >
+    </li>
+    }
+  </div>
+</div>
