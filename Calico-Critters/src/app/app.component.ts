@@ -5,10 +5,13 @@ import { AboutComponent } from './about/about.component';
 import { ColorComponent } from './color/color.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MainComponent } from './main/main.component';
+import { ColorTablesComponent } from './color-tables/color-tables.component';
+import { ColorSelectComponent } from './color-select/color-select.component';
+import { ColorPaintComponent } from './color-paint/color-paint.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, AboutComponent, ColorComponent, HomepageComponent, MainComponent],
+  imports: [RouterOutlet, HeaderComponent, AboutComponent, ColorComponent, HomepageComponent, MainComponent,ColorTablesComponent, ColorSelectComponent, ColorPaintComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
