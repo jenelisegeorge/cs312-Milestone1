@@ -3,11 +3,12 @@
 selectors). */
 html, body {
     /* margin: 25px; */
-    background-color: #8dccda;
+    background-color: #8eadee;
     /* font-family: arial, sans-serif; */
     font-family: "Sarala", sans-serif;
     font-size: 14px;
   }
+  
 
   /* Applies to all elements with <... class="someclass"> specified. */
   .someclass { color: #959df4; }
