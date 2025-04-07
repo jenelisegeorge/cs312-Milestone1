@@ -1,69 +1,26 @@
-<!-- This is the HTML template for the Color Coordinator Generation page. -->
-<!-- It includes a form for users to input the number of rows, columns, and colors. -->
-<!-- The form validates the input and displays a message based on the validation. -->
-<!-- The form uses js to check the input values and provide feedback. -->
-<!-- The form action is set to "/action_page.php", which is a placeholder for the server-side processing. -->
-<!-- Feel free to change!! -->
-<!-- <h2>Color Coordinator Generation</h2>
-
-<form action="/action_page.php">
-  <label for="rows">Rows (1-1000):</label><br />
-  <input type="text" id="rows" name="rows" /><br /><br />
-  <label for="columns">Columns (1-702):</label><br />
-  <input type="text" id="columns" name="columns" /><br /><br />
-  <label for="colors">Colors (1-10):</label><br />
-  <input type="text" id="colors" name="colors" /><br />
-  <br />
-
-  <button type="button" onclick="myFunction()">Submit</button>
-
-  <p id="demo"></p>
-
-  <script>
-    function myFunction() {
-      // x is id="row"
-      // y is id="column"
-      // z is id="colors"
-      let x = document.getElementById("rows").value;
-      let y = document.getElementById("columns").value;
-      let z = document.getElementById("colors").value;
-      // If row is Not a Number or not in [1-1000]
-      let text;
-      if (isNaN(x) || x < 1 || x > 1000) {
-        text = "Input not valid!";
-      }
-      // If columns is Not a Number or not in [1-702]
-      if (isNaN(y) || y < 1 || y > 702) {
-        text = "Input not valid!";
-      }
-      // If colors is Not a Number or not in [1-10]
-      if (isNaN(z) || z < 1 || z > 10) {
-        text = "Input not valid!";
-      } else {
-        text = "Great!";
-      }
-
-      document.getElementById("demo").innerHTML = text;
-    }
-
-    // If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".
-  </script>
-</form> -->
-
 <h2>Color Coordinator Generation</h2>
-<form [formGroup]="colorForm" (ngSubmit)="submit()">
-  <label for="rows">Rows (1-1000):</label><br />
-  <input type="text" id="rows" name="rows" formControlName="rows" /><br /><br />
-  <label for="columns">Columns (1-702):</label><br />
-  <input
-    type="text"
-    id="columns"
-    name="columns"
-    formControlName="columns"
-  /><br /><br />
-  <label for="colors">Colors (1-10):</label><br />
-  <input type="text" id="colors" name="colors" formControlName="colors" /><br />
-  <br />
+<div class="style_div">
+  <form [formGroup]="colorForm" (ngSubmit)="submit()">
+    <div class="form-row">
+      <label for="rows">Rows (1-1000):</label>
+      <input type="text" id="rows" name="rows" formControlName="rows" />
+    </div>
+    <div class="form-row">
+      <label for="columns">Columns (1-702):</label>
+      <input
+        type="text"
+        id="columns"
+        name="columns"
+        formControlName="columns"
+      />
+    </div>
+    <div class="form-row">
+      <label for="colors">Colors (1-10):</label>
+      <input type="text" id="colors" name="colors" formControlName="colors" />
+    </div>
 
-  <button type="submit" [disabled]="colorForm.invalid">Submit</button>
-</form>
+    <button type="submit" [disabled]="colorForm.invalid" id="submit_button">
+      Submit
+    </button>
+  </form>
+</div>
