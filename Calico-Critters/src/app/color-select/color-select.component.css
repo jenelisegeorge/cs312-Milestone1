@@ -1,0 +1,17 @@
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+  }
+  td {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  .left-column {
+    width: 20%;
+    text-align: center;
+  }
+  .right-column {
+    width: 80%;
+  }
+  

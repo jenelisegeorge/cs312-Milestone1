@@ -1,107 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Color Selection Table</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    table {
-      width: 80%;
-      margin: 20px auto;
-      border-collapse: collapse;
-    }
-    td {
-      border: 1px solid #ccc;
-      padding: 10px;
-    }
-    .left-column {
-      width: 20%;
-      text-align: center;
-    }
-    .right-column {
-      width: 80%;
-    }
-  </style>
-</head>
-<body>
-
-<table id="color-selection-table"></table>
-
-<script>
-  const colorsList = ["red", "orange", "yellow", "green", "blue", "purple", "grey", "brown", "black", "teal"];
-
-  function generateColorSelectionTable(numColors) {
-    const table = document.getElementById("color-selection-table");
-    table.innerHTML = "";
-    const dropdowns = [];
-
-    for (let i = 0; i < numColors; i++) {
-      const row = document.createElement("tr");
-
-      // Left Column
-      const leftCell = document.createElement("td");
-      leftCell.className = "left-column";
-
-      const radio = document.createElement("input");
-      radio.type = "radio";
-      radio.name = "selectedColor";
-      radio.value = i;
-      if (i === 0) radio.checked = true;
-
-      const select = document.createElement("select");
-      select.dataset.index = i;
-      dropdowns.push(select);
-
-      // Fill dropdown with options
-      colorsList.forEach(color => {
-        const option = document.createElement("option");
-        option.value = color;
-        option.textContent = color;
-        select.appendChild(option);
-      });
-
-      // Set default unique selection
-      select.value = colorsList[i];
-      
-      // Add change listener
-      select.addEventListener("change", () => {
-        updateDropdownOptions(dropdowns);
-      });
-
-      leftCell.appendChild(radio);
-      leftCell.appendChild(document.createElement("br"));
-      leftCell.appendChild(select);
-
-      // Right Column (blank for now)
-      const rightCell = document.createElement("td");
-      rightCell.className = "right-column";
-
-      row.appendChild(leftCell);
-      row.appendChild(rightCell);
-      table.appendChild(row);
-    }
-
-    updateDropdownOptions(dropdowns);
-  }
-
-  function updateDropdownOptions(dropdowns) {
-    // Get all selected values
-    const selectedValues = new Set(dropdowns.map(d => d.value));
-
-    dropdowns.forEach(currentDropdown => {
-      const currentValue = currentDropdown.value;
-      Array.from(currentDropdown.options).forEach(option => {
-        // Disable if selected elsewhere (but allow its own value)
-        option.disabled = selectedValues.has(option.value) && option.value !== currentValue;
-      });
-    });
-  }
-
-  // Generate the table with a test value (e.g., 5 colors)
-  generateColorSelectionTable(5);
-</script>
-
-</body>
-</html>
+<table>
+  <tr *ngFor="let color of selectedColors; let i = index">
+    <td class="left-column">
+      <input
+        type="radio"
+        name="selectedColor"
+        [checked]="selectedRadioIndex === i"
+        (change)="onRadioChange(i)"
+      />
+      <br />
+      <select [value]="selectedColors[i]" (change)="onColorChange(i, $event)">
+        <option
+          *ngFor="let optionColor of colorsList"
+          [value]="optionColor"
+          [disabled]="isColorDisabled(optionColor, i)"
+        >
+          {{ optionColor }}
+        </option>
+      </select>
+    </td>
+    <td class="right-column"></td>
+  </tr>
+</table>
