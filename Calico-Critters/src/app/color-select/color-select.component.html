@@ -1,1 +1,71 @@
-<p>color-select works!</p>
+<p>The first (upper) table is a 2 column by x row table, where x is the number of colors indicated by the parameter "colors". 
+    The left column is 20% of the table width and the right column is 80%.  
+    The table spans most of the width of the page.  There is no header row on this table.
+
+    In this table, the left column must contain 2 elements. 
+    First is a radio button marking the row as "Selected". 
+    If any other radio buttons are selected then the currently selected one is unselected. 
+    The second element is a dropdown selector that contains a list of 10 Colors  (red, orange, yellow, green, blue, purple, grey, brown, black, teal). You may order these how you like, but try to make it as intuitive as possible. 
+    Only 1 row of this table may have any 1 color chosen at a time. 
+    Do not allow the user to select the same color more than once. 
+    When the table initially loads each row of the table should default uniquely to one of the 10 colors.
+    
+    For now the Right column should be completely BLANK. 
+    You will use this in Part 2 of the Final Project.</p>
+
+
+    <!DOCTYPE html>
+<html>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+
+<div ng-app="colorSelect" ng-controller="colorCtrl"> 
+
+<table>
+    <tr>
+
+    </tr>
+    <tr ng-repeat="color in colors">
+        <td>
+            <input type="radio" name="selectedColor" ng-model="selectedColor" ng-value="color.color">
+            <select ng-model="color.selectedColor" ng-options="c for c in colorList" ng-change="updateSelectedColor(color)">
+                <option value="">Select Color</option>
+            </select>
+        </td>
+        
+        <td></td>
+    </tr>
+    <tr ng-repeat="color in colorList">
+        <td>
+            <input type="radio" name="selectedColor" ng-model="selectedColor" ng-value="color.color">
+            <select ng-model="colors" ng-options="c for c in colorList" ng-change="updateSelectedColor(color)">
+                <option value="">Select Color</option>
+                
+            </select>
+        </td>
+        
+        <td></td>
+    </tr>
+
+
+    </table>
+    
+    </div>
+    
+    <script>
+        var app = angular.module('colorSelect', []);
+        app.controller('colorCtrl', function($scope) {
+
+
+
+            $scope.colorList = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'brown', 'black', 'teal'];
+
+            $scope.updateSelectedColor = function(color) {
+                angular.forEach($scope.colors, function(c) {
+                    if (c !== color) {
+                        c.selectedColor = '';
+                    }
+                });
+            };
+        });
+</script>
