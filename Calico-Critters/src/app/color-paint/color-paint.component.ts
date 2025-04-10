@@ -16,8 +16,10 @@ export class ColorPaintComponent {
   colors: number = 0;
   showTable: boolean = false;
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params: any) => {
       const rows = parseInt(params['rows'], 10);
       const columns = parseInt(params['columns'], 10);
       const colors = parseInt(params['colors'], 10);
