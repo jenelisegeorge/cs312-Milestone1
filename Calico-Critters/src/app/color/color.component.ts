@@ -1,28 +1,102 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { FormGroup, FormControl } from '@angular/forms';
-import { ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule, Validators, FormGroup, FormControl, AbstractControl, ValidationErrors  } from '@angular/forms';
 import { Router } from '@angular/router';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-color',
-  imports: [ ReactiveFormsModule ],
+  imports: [ ReactiveFormsModule, NgIf ],
   templateUrl: './color.component.html',
   styleUrl: './color.component.css'
 })
 export class ColorComponent {
+  formSubmitted = false;
+
   colorForm = new FormGroup({
-    rows: new FormControl(''),
-    columns: new FormControl(''),
-    colors: new FormControl(''),
+    rows: new FormControl<number | null>(null, [Validators.min(1), Validators.max(1000), Validators.required, this.numberCheck]),
+    columns: new FormControl<number | null>(null, [Validators.min(1), Validators.max(702), Validators.required, this.numberCheck]),
+    colors: new FormControl<number | null>(null, [Validators.min(1), Validators.max(10), Validators.required, this.numberCheck]),
   });
 
   constructor(private router: Router) {}
 
   submit() {
+    this.formSubmitted = true;
     if (this.colorForm.invalid){
       return;
     }
     this.router.navigate(['/color-tables']);
+  }
+  
+  numberCheck(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (value === null) {
+      return null;
+    } 
+    return isNaN(value) ? {nonNumber : true} : null;
+  }
+
+  getErrorMessage(controlName : string) : string {
+    const control = this.colorForm.get(controlName);
+    if (!control || !control.errors){
+      return '';
+    }
+    if (control.errors['required']){
+      switch (controlName){
+        case 'rows':
+        return 'Rows: Value must be provided.';
+      }
+      switch (controlName){
+        case 'columns':
+        return 'Columns: Value must be provided.';
+      }
+      switch (controlName){
+        case 'colors':
+        return 'Colors: Value must be provided.';
+      }
+    }
+    if (control.errors['min']){
+      switch (controlName){
+        case 'rows':
+        return 'Rows: Value must be greater than 0.';
+      }
+      switch (controlName){
+        case 'columns':
+        return 'Columns: Value must be greater than 0.';
+      }
+      switch (controlName){
+        case 'colors':
+        return 'Colors: Value must be greater than 0.';
+      }
+    }
+    if (control.errors['max']){
+      switch (controlName){
+        case 'rows':
+        return 'Rows: Value cannot be greater than 1000.';
+      }
+      switch (controlName){
+        case 'columns':
+        return 'Columns: Value cannot be greater than 702.';
+      }
+      switch (controlName){
+        case 'colors':
+        return 'Colors: Value cannot be greater than 10.';
+      }
+    }
+    if (control.errors['nonNumber']){
+      switch (controlName){
+        case 'rows':
+        return 'Rows: Only numeric values may be used.';
+      }
+      switch (controlName){
+        case 'columns':
+        return 'Columns: Only numeric values may be used.';
+      }
+      switch (controlName){
+        case 'colors':
+        return 'Colors: Only numeric values may be used.';
+      }
+    }
+    return '....Invalid Input....'
   }
 }

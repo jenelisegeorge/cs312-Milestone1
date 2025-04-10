@@ -19,8 +19,17 @@
       <input type="text" id="colors" name="colors" formControlName="colors" />
     </div>
 
-    <button type="submit" [disabled]="colorForm.invalid" id="submit_button">
-      Submit
-    </button>
+    <button type="submit" id="submit_button">Submit</button>
+
+    <div class="errorBox" *ngIf="formSubmitted && colorForm.invalid">
+      <h4 class="errorTitle">ERROR:</h4>
+      <div>
+        {{ getErrorMessage("rows") }}
+      </div>
+      <div>
+        {{ getErrorMessage("columns") }}
+      </div>
+      <div>{{ getErrorMessage("colors") }}</div>
+    </div>
   </form>
 </div>
