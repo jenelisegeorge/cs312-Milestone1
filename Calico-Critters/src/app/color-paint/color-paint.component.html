@@ -1,1 +1,16 @@
-<p>color-paint works!</p>
+<div *ngIf="showTable">
+  <table border="1">
+    <tr>
+      <th></th>
+      <th *ngFor="let col of [].constructor(columns); let i = index">
+        {{ getColumnName(i) }}
+      </th>
+    </tr>
+    <tr *ngFor="let r of [].constructor(rows); let rowIndex = index">
+      <td>{{ rowIndex + 1 }}</td>
+      <td *ngFor="let c of [].constructor(columns); let colIndex = index"
+          (click)="onCellClick(rowIndex + 1, colIndex)">
+      </td>
+    </tr>
+  </table>
+</div>
