@@ -1,0 +1,20 @@
+.table {
+    min-width: 100%;
+    align-self: center;
+    background-color: white;
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid lightgrey;
+}
+
+.table-div {
+    display: flex;
+}
+
+.table-headers{
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    text-align: center;
+    padding: 2px;
+}
