@@ -12,6 +12,10 @@ h1 {
     margin: -12px 0 35px 0;
   }
 
+  h3 {
+    font-size: 150%;
+  }
+
 h2,h3{
     font-family: "Merriweather", serif;
   }
@@ -27,11 +31,17 @@ h2,h3{
   flex-grow: 1;
   margin: 5px 20px;
   padding: 5px 20px;
+  background-color: white;
+  border-radius: 5%;
+  border: 8px solid #D6B9EB;
 }
 
 .teamMemberImage{
   max-width: 90%;
   max-height: 90%;
+  border-radius: 5%;
+  display: flex;
+  justify-self: center;
 }
 
 .teamMemberParagraph{

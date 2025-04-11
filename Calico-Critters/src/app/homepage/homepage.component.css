@@ -29,6 +29,7 @@ div{
     flex-direction: column;
     justify-self: center;
     align-items: center;
+    border: 8px solid #79C380;
 }
 @counter-style emojis {
     system: cyclic;
