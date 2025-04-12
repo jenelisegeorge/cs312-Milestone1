@@ -18,3 +18,17 @@
     text-align: center;
     padding: 2px;
 }
+
+@media print {
+    
+    .print-button {
+        
+        body {
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            filter: grayscale(100%);
+          }
+        
+    }
+}

@@ -15,18 +15,21 @@
 
 
     <tr *ngFor="let r of [].constructor(rows);">
+
+     
         <td>
             <input type="radio" name="selectedColor" ng-model="selectedColor" ng-value="color.color">
-            
-            <select [(ngModel)]="selectedColor" name="color">
+            <select>
                 <option value="" selected>Select Color</option>
                 @for (color of colorList; track color) {
-                  <option [value]="color.value">{{color.viewValue}}</option>
-                }
+                    <option [value]="color.value">{{color.viewValue}}</option>
+                  }
               </select>
+           
         </td>
 
         <td>
+            
         </td>   
 </tr>
 
