@@ -12,6 +12,7 @@ form {
     display: flex;
     flex-direction: column;
     border-radius: 5%;
+    border: 8px solid #4F9858;
 }
 .form-row {
     margin-top: 15px;
@@ -30,8 +31,9 @@ form {
     border-radius: 10%;
     border: solid 2px white;
     color: white;
-    font-size: 15px;
-    letter-spacing: 1px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 2px;
 }
 #submit_button:hover {
     background-color: white;
@@ -51,15 +53,10 @@ h2{
     color: black;
     border-radius: 5%;
     padding: 20px;
+    border: 4px solid #A30000;
 }
 
 .errorTitle{
     color: #A30000;
     margin: 10px 0;
 }
-
-/* #90d6b9, #000000
-#8dccda, #000000
-#8eadee, #000000
-#959df4, #000000
-#aa95f2, #000000 */

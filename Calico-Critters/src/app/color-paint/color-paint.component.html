@@ -1,16 +1,20 @@
-<div *ngIf="showTable">
-  <table border="1">
-    <tr>
+<div *ngIf="showTable" class="table-div">
+  <table border="1" class="table">
+    <tr class="table-headers">
       <th></th>
-      <th *ngFor="let col of [].constructor(columns); let i = index">
+      <th
+        *ngFor="let col of [].constructor(columns); let i = index"
+        class="column-headers"
+      >
         {{ getColumnName(i) }}
       </th>
     </tr>
     <tr *ngFor="let r of [].constructor(rows); let rowIndex = index">
-      <td>{{ rowIndex + 1 }}</td>
-      <td *ngFor="let c of [].constructor(columns); let colIndex = index"
-          (click)="onCellClick(rowIndex + 1, colIndex)">
-      </td>
+      <td class="table-headers">{{ rowIndex + 1 }}</td>
+      <td
+        *ngFor="let c of [].constructor(columns); let colIndex = index"
+        (click)="onCellClick(rowIndex + 1, colIndex)"
+      ></td>
     </tr>
   </table>
 </div>
