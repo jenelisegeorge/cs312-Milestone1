@@ -25,7 +25,16 @@ export class ColorComponent {
     if (this.colorForm.invalid){
       return;
     }
-    this.router.navigate(['/color-tables']);
+
+    const { rows, columns, colors } = this.colorForm.value;
+
+    this.router.navigate(['/color-tables'], {
+      queryParams: {
+        rows: rows,
+        columns: columns,
+        colors: colors
+      }
+    });
   }
   
   numberCheck(control: AbstractControl): ValidationErrors | null {
