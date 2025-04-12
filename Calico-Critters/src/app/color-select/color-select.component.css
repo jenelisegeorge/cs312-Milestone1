@@ -8,5 +8,23 @@ td {
     text-align: left;
 }
 
+@media print {
+    select {
+        display: none;
+    }
+    .print-button {
+
+        
+
+        body {
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            filter: grayscale(100%);
+          }
+        
+    }
+}
+
 
 

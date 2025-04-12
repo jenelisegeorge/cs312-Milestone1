@@ -53,4 +53,11 @@ export class ColorPaintComponent {
     const colLabel = this.getColumnName(colIndex);
     alert(`${colLabel}${row}`);
   }
+
+ printPage() {
+    window.print();
+    
+  }
 }
+
+
