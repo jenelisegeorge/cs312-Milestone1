@@ -1,1 +1,23 @@
-<p>color-select works!</p>
+<table>
+  <tr *ngFor="let color of selectedColors; let i = index">
+    <td class="left-column">
+      <input
+        type="radio"
+        name="selectedColor"
+        [checked]="selectedRadioIndex === i"
+        (change)="onRadioChange(i)"
+      />
+      <br />
+      <select [value]="selectedColors[i]" (change)="onColorChange(i, $event)">
+        <option
+          *ngFor="let optionColor of colorsList"
+          [value]="optionColor"
+          [disabled]="isColorDisabled(optionColor, i)"
+        >
+          {{ optionColor }}
+        </option>
+      </select>
+    </td>
+    <td class="right-column"></td>
+  </tr>
+</table>
