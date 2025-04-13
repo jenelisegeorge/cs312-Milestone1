@@ -5,8 +5,28 @@ table {
 td {
     border: 1px solid black;
     padding: 8px;
-    text-align: left;
+    text-align: center;
 }
+
+td{
+    background-color: white;
+    padding: 13px 0px;
+}
+
+td:first-child{
+    width: 20%;
+    background-color: #4F9858;
+}
+
+input {
+    height: 10%;
+    width: 10%;
+}
+
+table {
+    margin-bottom: 3%;
+}
+
 
 @media print {
     select {

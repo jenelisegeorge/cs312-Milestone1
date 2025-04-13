@@ -27,23 +27,24 @@ export class ColorSelectComponent {
     { value: 'yellow', viewValue: 'Yellow' },
     { value: 'green', viewValue: 'Green' },
     { value: 'blue', viewValue: 'Blue' },
-    { value: 'yellow', viewValue: 'Yellow' },
     { value: 'purple', viewValue: 'Purple' },
     { value: 'grey', viewValue: 'Grey' },
     { value: 'brown', viewValue: 'Brown' },
     { value: 'black', viewValue: 'Black' },
-    { value: 'Teal', viewValue: 'Teal' }
+    { value: 'teal', viewValue: 'Teal' }
   ];
 
   rows: number = 0;
   columns: number = 2;
   colors: number = 0;
   showTable: boolean = false;
+  selectedColors: string[] = [];
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
+
       const rows = parseInt(params['rows'], 10);
       const columns = parseInt(params['columns'], 10);
       const colors = parseInt(params['colors'], 10);
@@ -56,11 +57,24 @@ export class ColorSelectComponent {
         this.colors = colors;
       }
     });
+
+    for (let i = 0; i < this.colors; i++){
+      this.selectedColors[i] = this.colorList[i].value || '';
+    }
+    
   }  
 
   setDimensions(rows: number, columns: number): void {
     this.rows = rows;
+    console.log(rows);
     this.columns = 2;
     this.showTable = true;
   }
+
+  isColorAvailable(color: string, currentIndex: number): boolean{
+    return this.selectedColors.some(
+      (selected, i) => i !== currentIndex && selected === color
+    );
+  }
+
 }
