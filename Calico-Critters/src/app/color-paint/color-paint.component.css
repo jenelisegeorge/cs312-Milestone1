@@ -19,6 +19,27 @@
     padding: 2px;
 }
 
+.print-button button{
+    margin: 15px 0;
+    display: flex;
+    justify-self: center;
+    background-color: white;
+    font-family: "Merriweather", serif;
+    padding: 10px;
+    border-radius: 10%;
+    border: solid 2px black;
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.print-button button:hover{
+    background-color: black;
+    color: white;
+    border: solid 2px white;
+}
+
 @media print {
     
     .print-button {
