@@ -74,3 +74,55 @@ Tables generated as specified (20 points)
 Color selector obeys selection restrictions (no duplicate colors, default filling of values) (10 points)
 Print Button (10 points)
 *** Items marked with triple stars (***) are individually graded per student.  Otherwise, all other items will be awarded points to all team members the same.  The notable exception is that team members who did nothing or significantly less work will be penalized, potentially losing all of these points in extreme cases.
+
+Finishing the Color Coordinate Generation
+Selecting a color in the upper table now marks a color as "Active". When a cell in the lower table is clicked, it is colored with the "Active" color.  
+
+When a cell in the lower table is clicked, its coordinate is added to the right column by the color name.  For example, if cells A1, B2, and C3 are colored "red" then the row with "red" as the selected color will show "A1, B2, C3" in the right cell.  Keep the cells in lexicographic order (Sort by letter First, Number Second).  
+
+When a drop-down is changed to a new color, all of the cells in the table change from the old color to the new color.  
+
+Print View
+Update the print view to support the new color coordinate generation.  When the form is submitted, the print view behaves as before.  Additionally, the radio buttons are NOT shown and along side the color name include the color's Hex Code.  The lower table's cells remain blank (white) and are not colored.  The right column of the upper table DOES contain the cell coordinates.
+
+The idea here is that we have generated a "color by number" sheet, where you can make a picture in the editor, then get a print view, print it and it is an activity to be colored. 
+
+Why did we do this?
+A large part of Computer Science is helping people, improving quality of life.  These color coordinate sheets are actively used in Vision Therapy for certain vision disorders.  You just made software to help with this type of therapy!  Nice.
+
+Database - Manage Colors
+Create a new page for Color Selection. This must be separate from the color coordinates page.
+
+On this page you will have code to allow users to enter new colors into your selection choices. 
+
+In your database you will add a table called "colors", each row represents a unique color. The colors have an "id", "Name", and "hex value". All 3 of these are Unique and cannot be "Null"
+
+On this page there should 3 Interfaces.
+
+The first interface is to Add a new color, ideally the user should only have to enter a name and hex value for the color. If adding a color would conflict with an already existing name or hex value, a non-intrusive error should be displayed telling the user so.
+The second interface is to allow the user to Edit an existing color. This should allow them to change the name and/or the hex value of the color. The same errors apply to the Add command.
+The third interface is for deleting a color. This should allow the user to select a color, and submit it for deletion. Ensure that this is a 2 step process to prevent any accidental deletes (e.g. don't use a drop down menu that sends a delete request on click).  Additionally do not let the user submit a delete request if there are less than 2 colors in the color table. Please use a non-intrusive error to alert the user if they attempt to delete one of the last 2 colors.
+Please pre-initialize your table with the 10 basic colors as per milestone 1.
+
+Improving the Color Coordinates Page
+In the Color Coordinates page there are a few new changes.
+
+instead of having a drop down menu with 10 hard coded color choices it now has 1 choice per color in the Colors Table. The same color selection restrictions are in place, each row should be a unique color and no duplicate colors can be selected.
+For input validation the user now can request between 1-N row for the color selector where N is the number of colors in your colors table. Again this can be quite unreasonable as 50 color rows would be untenable to read. However you should do your BEST to accommodate but know that when a user makes an unrealistic request sometimes the site will have unusual responses.
+
+Final Polish
+Do a final polishing pass on your site to make sure it always looks its best.  This is subjective.  Do some "hallway usability testing" on your site.  Show it to your parents, aunts, uncles, cousins, children, friends, roommates, grandparents, or whoever else will look at it.  See what they say.  You want this to be a professional looking site. 
+
+Grading
+Ability to paint with a chosen color, coordinate appears in table when painted (10 points)
+Cells change colors when drop down changed (10 points)
+Print view shows coordinates, no colored-in cells (10 points)
+DB Access Page (10 Points)
+DB table added to store colors, application pulls from table to populate drop downs (5 points)
+User interface to add Colors (10) Points
+User interface to delete colors (10 points)
+User Interface to edit colors (5 points)
+Final Polish, app is a well-polished, good looking, application without errors (30 points)
+This is a large category and basically will be an overall impression of your site.  
+Most of the submissions to Milestone 1 would have received 15-20 points on this (so don't stress too much!).
+Features that aren't implemented won't count against, but if something is implemented, it should work nicely.
