@@ -12,6 +12,7 @@ export class HeaderComponent {
    { routeLink: 'homepage', label: 'Homepage'},
    { routeLink: 'about', label: 'About'},
    { routeLink: 'color', label: 'Color Generator'},
+   { routeLink: 'color-management', label: 'Manage Colors'},
   ]
 
 }

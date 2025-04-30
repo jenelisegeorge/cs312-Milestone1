@@ -10,6 +10,10 @@ padding: 10px;
     display: flex;
     flex-direction: row;
     align-self: center;
+    justify-content: space-evenly;
+    gap: 1em;
+    width: 100%;
+    max-width: 800px;
 }
 
 #company{
@@ -24,10 +28,14 @@ li {
 }
 
 .navbarLinks{
-    margin-right: 25px;
+    white-space: nowrap;
     text-decoration: none;
     color: white;
-    font-size: 20px;
+    white-space: nowrap;
+    font-size: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1em;
     padding: 5px;
     border: solid 2px black;
     border-radius: 50%;
