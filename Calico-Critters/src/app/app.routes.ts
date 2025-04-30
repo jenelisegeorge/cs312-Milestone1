@@ -5,6 +5,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { ColorTablesComponent } from './color-tables/color-tables.component';
 import { ColorSelectComponent } from './color-select/color-select.component';
 import { ColorPaintComponent } from './color-paint/color-paint.component';
+import { ColorManagementComponent } from './color-management/color-management.component';
 
 export const routes: Routes = [
     {path: '', component:HomepageComponent, pathMatch:'full'},
@@ -13,5 +14,6 @@ export const routes: Routes = [
     {path: 'color', component:ColorComponent},
     {path: 'color-tables', component:ColorTablesComponent},
     {path: 'color-select', component:ColorSelectComponent},
-    {path: 'color-paint', component:ColorPaintComponent}
+    {path: 'color-paint', component:ColorPaintComponent},
+    {path: 'color-management', component:ColorManagementComponent}
 ];
