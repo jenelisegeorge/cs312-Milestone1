@@ -40,6 +40,7 @@ interface Color {
 })
 
 export class ColorSelectionComponent {
+  showTable: boolean = true;
 
     colorList: Color[] = [
         { value: 'red', viewValue: 'Red' },
@@ -53,6 +54,12 @@ export class ColorSelectionComponent {
         { value: 'black', viewValue: 'Black' },
         { value: 'teal', viewValue: 'Teal' }
       ];
+
+    // ------------------------------------------------------------------------
+    //this can stay here for now until db is connected - 
+    // but colors list is initialized with colors via database not in a ts array
+    // ------------------------------------------------------------------------
+
 
     //Please pre-initialize your table with the 10 basic colors as per milestone 1.
 
