@@ -42,7 +42,7 @@ interface Color {
 export class ColorSelectionComponent {
   showTable: boolean = true;
 
-    colorList: Color[] = [
+    colors: Color[] = [
         { value: 'red', viewValue: 'Red' },
         { value: 'orange', viewValue: 'Orange' },
         { value: 'yellow', viewValue: 'Yellow' },
@@ -63,4 +63,106 @@ export class ColorSelectionComponent {
 
     //Please pre-initialize your table with the 10 basic colors as per milestone 1.
 
+
+  newColor: Add = { name: '', hex: '' };
+  addError: string = '';
+
+  selectedEditColor: Color | null = null;
+  editColor: Edit = { name: '', hex: '' };
+  editError: string = '';
+
+  selectedDeleteColor: Color | null = null;
+  confirmingDelete: boolean = false;
+  deleteError: string = '';
+
+  addNewColor() {
+    this.addError = '';
+
+    const nameExists = this.colors.some(c => c.viewValue.toLowerCase() === this.newColor.name.toLowerCase());
+    const hexExists = this.colors.some(c => c.value.toLowerCase() === this.newColor.hex.toLowerCase());
+
+    if (!this.newColor.name || !this.newColor.hex) {
+      this.addError = 'Name and hex value are required.';
+      return;
+    }
+
+    if (nameExists || hexExists) {
+      this.addError = 'Color name or hex value already exists.';
+      return;
+    }
+
+    this.colors.push({
+      value: this.newColor.hex,
+      viewValue: this.newColor.name
+    });
+
+    this.newColor = { name: '', hex: '' };
+  }
+
+  startEdit(color: Color | null) {
+    this.selectedEditColor = color;
+    if (color) {
+      this.editColor = { name: color.viewValue, hex: color.value };
+    }
+    this.editError = '';
+  }
+
+  editSelectedColor() {
+    if (!this.selectedEditColor) return;
+    this.editError = '';
+
+    const nameExists = this.colors.some(c =>
+      c.viewValue.toLowerCase() === this.editColor.name.toLowerCase() &&
+      c !== this.selectedEditColor
+    );
+    const hexExists = this.colors.some(c =>
+      c.value.toLowerCase() === this.editColor.hex.toLowerCase() &&
+      c !== this.selectedEditColor
+    );
+
+    if (!this.editColor.name || !this.editColor.hex) {
+      this.editError = 'Name and hex value are required.';
+      return;
+    }
+
+    if (nameExists || hexExists) {
+      this.editError = 'Color name or hex value already exists.';
+      return;
+    }
+
+    this.selectedEditColor.viewValue = this.editColor.name;
+    this.selectedEditColor.value = this.editColor.hex;
+
+    this.selectedEditColor = null;
+    this.editColor = { name: '', hex: '' };
+  }
+
+  requestDeleteColor(color: Color | null) {
+    if (!color) return;
+
+    
+    this.deleteError = '';
+
+    if (this.colors.length <= 2) {
+      this.deleteError = 'You must keep at least two colors.';
+      return;
+    }
+
+    this.selectedDeleteColor = color;
+    this.confirmingDelete = true;
+  }
+
+  confirmDeleteColor() {
+    if (!this.selectedDeleteColor) return;
+
+    this.colors = this.colors.filter(c => c !== this.selectedDeleteColor);
+    this.selectedDeleteColor = null;
+    this.confirmingDelete = false;
+    this.deleteError = '';
+  }
+
+  cancelDelete() {
+    this.selectedDeleteColor = null;
+    this.confirmingDelete = false;
+  }
 }
