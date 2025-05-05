@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 interface Add {
   name: string;
@@ -39,30 +40,30 @@ interface Color {
   styleUrl: './color-selection.component.css'
 })
 
-export class ColorSelectionComponent {
+export class ColorSelectionComponent implements OnInit{
   showTable: boolean = true;
 
-    colors: Color[] = [
-        { value: 'red', viewValue: 'Red' },
-        { value: 'orange', viewValue: 'Orange' },
-        { value: 'yellow', viewValue: 'Yellow' },
-        { value: 'green', viewValue: 'Green' },
-        { value: 'blue', viewValue: 'Blue' },
-        { value: 'purple', viewValue: 'Purple' },
-        { value: 'grey', viewValue: 'Grey' },
-        { value: 'brown', viewValue: 'Brown' },
-        { value: 'black', viewValue: 'Black' },
-        { value: 'teal', viewValue: 'Teal' }
-      ];
+  colors: Color[] = [];
+  constructor(private http: HttpClient) {}
 
-    // ------------------------------------------------------------------------
-    //this can stay here for now until db is connected - 
-    // but colors list is initialized with colors via database not in a ts array
-    // ------------------------------------------------------------------------
+  ngOnInit() {
+    this.getColors().subscribe({
+      next: data => {
+        this.colors = data.map(c => ({
+          value: c.hex_value,
+          viewValue: c.color_name
+        }));
+      },
+      error: err => {
+        console.error('Error getting colors', err);
+        this.addError = 'Failed to get colors from database.';
+      }
+    });
+  }
 
-
-    //Please pre-initialize your table with the 10 basic colors as per milestone 1.
-
+  getColors() {
+    return this.http.get<{ color_name: string; hex_value: string }[]>('https://cs.colostate.edu:4444/~baldwin2/api');
+  }
 
   newColor: Add = { name: '', hex: '' };
   addError: string = '';
