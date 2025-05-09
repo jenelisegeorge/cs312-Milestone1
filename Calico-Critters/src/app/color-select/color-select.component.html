@@ -7,8 +7,12 @@
           name="selectedColor"
           [(ngModel)]="selectedColor"
           [value]="selectedColors[i]"
+          (change)="colorCoordinationService.setActiveColor(selectedColor)"
         />
-        <select [(ngModel)]="selectedColors[i]">
+        <select 
+          [(ngModel)]="selectedColors[i]"
+          (change)="onColorChange($event.target.value, i)"
+        >
           <option
             *ngFor="let color of colorList"
             [value]="color.value"
@@ -18,7 +22,9 @@
           </option>
         </select>
       </td>
-      <td></td>
+      <td>
+        {{ colorCoordinationService.getSortedCoordsForColor(selectedColors[i]).join(', ') }}
+      </td>
     </tr>
   </table>
 </div>
