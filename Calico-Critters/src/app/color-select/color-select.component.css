@@ -29,22 +29,22 @@ table {
 
 
 @media print {
-    select {
-        display: none;
+    body {
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        filter: grayscale(100%);
     }
-    .print-button {
 
-        
-
-        body {
-            -webkit-filter: grayscale(100%);
-            -moz-filter: grayscale(100%);
-            -ms-filter: grayscale(100%);
-            filter: grayscale(100%);
-          }
-        
+    input, select, .screenView {
+        display: none !important;
     }
+
+    .printView {
+        display: block !important;
+    }    
 }
 
-
-
+.printView {
+    display: none;
+}
