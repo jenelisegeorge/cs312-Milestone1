@@ -78,10 +78,10 @@ export class ColorSelectComponent {
     );
   }
 
-  onColorChange(newColor: string, index: number) {
-  const oldColor = this.selectedColors[index];
-  this.selectedColors[index] = newColor;
-  this.colorCoordinationService.updateColor(oldColor, newColor);
+  onColorChange(event: Event, index: number) {
+  const target = event.target as HTMLSelectElement;
+  const selectedValue = target.value;
+  this.selectedColors[index] = selectedValue;
 }
 
 }

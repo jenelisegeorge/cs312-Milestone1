@@ -11,7 +11,7 @@
         />
         <select 
           [(ngModel)]="selectedColors[i]"
-          (change)="onColorChange($event.target.value, i)"
+          (change)="onColorChange($event, i)"
         >
           <option
             *ngFor="let color of colorList"
