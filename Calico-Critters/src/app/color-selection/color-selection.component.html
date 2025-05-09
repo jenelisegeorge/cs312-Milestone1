@@ -1,76 +1,96 @@
 <h2>Color Selection Page</h2>
 
-<section>
-  <h3>Add a New Color</h3>
-  <label>
-    Name:
-    <input [(ngModel)]="newColor.name" />
-  </label>
-  <label>
-    Hex:
-    <input [(ngModel)]="newColor.hex" />
-  </label>
-  <button (click)="addNewColor()">Add Color</button>
-  <p *ngIf="addError" style="color: red">{{ addError }}</p>
-</section>
+<div id="interface-div">
+  <section id="add-interface" class="interface">
+    <h3>Add a New Color</h3>
+    <div class="row">
+      <label>
+        Name:
+        <input [(ngModel)]="newColor.name" class="select-box" />
+      </label>
+    </div>
+    <div class="row">
+      <label>
+        Hex:
+        <input [(ngModel)]="newColor.hex" class="select-box" />
+      </label>
+    </div>
+    <div class="row">
+      <button (click)="addNewColor()" class="submit_button">Add Color</button>
+      <p *ngIf="addError" style="color: red">{{ addError }}</p>
+    </div>
+  </section>
 
-<hr />
+  <hr />
 
-<section>
-  <h3>Edit an Existing Color</h3>
-  <label>
-    Choose color:
-    <select
-      [(ngModel)]="selectedEditColor"
-      (change)="startEdit(selectedEditColor)"
-    >
-      <option [ngValue]="null" disabled selected>Select color</option>
-      <option *ngFor="let color of colors" [ngValue]="color">
-        {{ color.viewValue }}
-      </option>
-    </select>
-  </label>
+  <section id="edit-interface" class="interface">
+    <h3>Edit an Existing Color</h3>
+    <div class="row">
+      <label>
+        Choose color:
+        <select
+          [(ngModel)]="selectedEditColor"
+          (change)="startEdit(selectedEditColor)"
+          class="select-box"
+        >
+          <option [ngValue]="null" disabled selected>Select color</option>
+          <option *ngFor="let color of colors" [ngValue]="color">
+            {{ color.viewValue }}
+          </option>
+        </select>
+      </label>
+    </div>
 
-  <div *ngIf="selectedEditColor">
-    <label>
-      New Name:
-      <input [(ngModel)]="editColor.name" />
-    </label>
-    <label>
-      New Hex:
-      <input [(ngModel)]="editColor.hex" />
-    </label>
-    <button (click)="editSelectedColor()">Save Changes</button>
-    <p *ngIf="editError" style="color: red">{{ editError }}</p>
-  </div>
-</section>
+    <div *ngIf="selectedEditColor" class="interface">
+      <label>
+        New Name:
+        <input [(ngModel)]="editColor.name" />
+      </label>
+      <label>
+        New Hex:
+        <input [(ngModel)]="editColor.hex" />
+      </label>
+      <button (click)="editSelectedColor()">Save Changes</button>
+      <p *ngIf="editError" style="color: red">{{ editError }}</p>
+    </div>
+  </section>
 
-<hr />
+  <hr />
 
-<section>
-  <h3>Delete a Color</h3>
-  <label>
-    Choose color:
-    <select [(ngModel)]="selectedDeleteColor">
-      <option [ngValue]="null" disabled selected>Select color</option>
-      <option *ngFor="let color of colors" [ngValue]="color">
-        {{ color.viewValue }}
-      </option>
-    </select>
-  </label>
-  <button (click)="requestDeleteColor(selectedDeleteColor)">
-    Delete Color
-  </button>
-  <p *ngIf="deleteError" style="color: red">{{ deleteError }}</p>
+  <section id="delete-interface" class="interface">
+    <h3>Delete a Color</h3>
+    <div class="row">
+      <label>
+        Choose color:
+        <select [(ngModel)]="selectedDeleteColor" class="select-box">
+          <option [ngValue]="null" disabled selected>Select color</option>
+          <option *ngFor="let color of colors" [ngValue]="color">
+            {{ color.viewValue }}
+          </option>
+        </select>
+      </label>
+    </div>
+    <div class="row">
+      <button
+        (click)="requestDeleteColor(selectedDeleteColor)"
+        class="submit_button"
+      >
+        Delete Color
+      </button>
+    </div>
+    <p *ngIf="deleteError" style="color: red">{{ deleteError }}</p>
 
-  <div *ngIf="confirmingDelete">
-    <p>
-      Are you sure you want to delete "{{ selectedDeleteColor?.viewValue }}"?
-    </p>
-    <button (click)="confirmDeleteColor()">Yes, Delete</button>
-    <button (click)="cancelDelete()">Cancel</button>
-  </div>
-</section>
+    <div *ngIf="confirmingDelete">
+      <p>
+        Are you sure you want to delete "{{ selectedDeleteColor?.viewValue }}"?
+      </p>
+      <button (click)="confirmDeleteColor()" class="submit_button">
+        Yes, Delete
+      </button>
+      <button (click)="cancelDelete()" class="submit_button">Cancel</button>
+    </div>
+  </section>
+</div>
 
 <hr />
 
