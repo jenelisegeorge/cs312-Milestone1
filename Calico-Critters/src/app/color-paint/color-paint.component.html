@@ -14,7 +14,7 @@
       <td
         *ngFor="let c of [].constructor(columns); let colIndex = index"
         (click)="onCellClick(rowIndex + 1, colIndex)"
-        [ngStyle]="{'background-color': colorService.getCellColor(getColumnName(colIndex) + (rowIndex + 1))}"
+        [ngStyle]="{'background-color': colorCoordinationService.getCellColor(getColumnName(colIndex) + (rowIndex + 1))}"
       ></td>
     </tr>
   </table>
