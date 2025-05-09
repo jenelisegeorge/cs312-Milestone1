@@ -4,3 +4,84 @@ table {
     font-size: 20px;
     margin: 20px;
 }
+
+#interface-div {
+    display: flex;
+    justify-content: center;
+}
+
+#add-interface {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.interface {
+    background-color: #d9e4ff;
+    color: black;
+    min-width: 30%;
+    font-size: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5%;
+    border: 8px solid #89ce00;
+}
+.row {
+    margin-top: 15px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+    
+.submit_button {
+    margin: 15px 0;
+    display: flex;
+    align-self: center;
+    background-color: #89ce00;
+    font-family: "Merriweather", serif;
+    padding: 10px;
+    border-radius: 10%;
+    border: solid 2px black;
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.submit_button:hover {
+    background-color: black;
+    color: white;
+}
+
+h2{
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 5px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  h3{
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 5px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+.select-box{
+    padding: 5px;
+    font-size: 15px;
+}
+
+ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(132px, 1fr)); 
+}
+  
+li {
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 17px;
+    justify-self: center;
+}
