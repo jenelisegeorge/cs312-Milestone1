@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ColorCoordinationService } from '../color-coordination/color-coordination.service';
 
 interface Color {
   value: string;
@@ -40,7 +41,7 @@ export class ColorSelectComponent {
   showTable: boolean = false;
   selectedColors: string[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, public colorCoordinationService: ColorCoordinationService) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
@@ -76,5 +77,11 @@ export class ColorSelectComponent {
       (selected, i) => i !== currentIndex && selected === color
     );
   }
+
+  onColorChange(newColor: string, index: number) {
+  const oldColor = this.selectedColors[index];
+  this.selectedColors[index] = newColor;
+  this.colorCoordinationService.updateColor(oldColor, newColor);
+}
 
 }
