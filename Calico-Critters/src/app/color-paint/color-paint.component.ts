@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ColorCoordinationService } from '../color-coordination/color-coordination.service';
 
 @Component({
   selector: 'app-color-paint',
@@ -16,7 +17,7 @@ export class ColorPaintComponent {
   colors: number = 0;
   showTable: boolean = false;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, public colorCoordinationService: ColorCoordinationService) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
@@ -51,7 +52,8 @@ export class ColorPaintComponent {
 
   onCellClick(row: number, colIndex: number): void {
     const colLabel = this.getColumnName(colIndex);
-    alert(`${colLabel}${row}`);
+    const coord = `${colLabel}${row}`;
+    this.colorCoordinationService.paintCell(coord);
   }
 
  printPage() {
