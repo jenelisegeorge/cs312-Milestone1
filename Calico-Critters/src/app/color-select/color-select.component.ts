@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ColorCoordinationService } from '../color-coordination/color-coordination.service';
 
 interface Color {
   value: string;
   viewValue: string;
+  hex: string;
 }
 
 @Component({
@@ -22,16 +24,16 @@ export class ColorSelectComponent {
   selectedColor: string = '';
 
   colorList: Color[] = [
-    { value: 'red', viewValue: 'Red' },
-    { value: 'orange', viewValue: 'Orange' },
-    { value: 'yellow', viewValue: 'Yellow' },
-    { value: 'green', viewValue: 'Green' },
-    { value: 'blue', viewValue: 'Blue' },
-    { value: 'purple', viewValue: 'Purple' },
-    { value: 'grey', viewValue: 'Grey' },
-    { value: 'brown', viewValue: 'Brown' },
-    { value: 'black', viewValue: 'Black' },
-    { value: 'teal', viewValue: 'Teal' }
+    { value: 'red', viewValue: 'Red', hex: '#FF0000' },
+    { value: 'orange', viewValue: 'Orange', hex: '#FFA500' },
+    { value: 'yellow', viewValue: 'Yellow', hex: '#FFFF00' },
+    { value: 'green', viewValue: 'Green', hex: '#008000' },
+    { value: 'blue', viewValue: 'Blue', hex: '#0000FF' },
+    { value: 'purple', viewValue: 'Purple', hex: '#800080' },
+    { value: 'grey', viewValue: 'Grey', hex: '#808080' },
+    { value: 'brown', viewValue: 'Brown', hex: '#A52A2A' },
+    { value: 'black', viewValue: 'Black', hex: '#000000' },
+    { value: 'teal', viewValue: 'Teal', hex: '#008080' }
   ];
 
   rows: number = 0;
@@ -40,7 +42,7 @@ export class ColorSelectComponent {
   showTable: boolean = false;
   selectedColors: string[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, public colorCoordinationService: ColorCoordinationService) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
@@ -76,5 +78,16 @@ export class ColorSelectComponent {
       (selected, i) => i !== currentIndex && selected === color
     );
   }
+
+  onColorChange(event: Event, index: number) {
+  const target = event.target as HTMLSelectElement;
+  const selectedValue = target.value;
+  this.selectedColors[index] = selectedValue;
+}
+
+getHexCode(color: string): string {
+  const found = this.colorList.find(c => c.value === color);
+  return found ? found.hex : '';
+}
 
 }

@@ -2,23 +2,34 @@
   <table>
     <tr *ngFor="let r of [].constructor(colors); let i = index">
       <td>
-        <input
-          type="radio"
-          name="selectedColor"
-          [(ngModel)]="selectedColor"
-          [value]="selectedColors[i]"
-        />
-        <select [(ngModel)]="selectedColors[i]">
-          <option
-            *ngFor="let color of colorList"
-            [value]="color.value"
-            [disabled]="isColorAvailable(color.value, i)"
+        <div class="screenView">
+          <input
+            type="radio"
+            name="selectedColor"
+            [(ngModel)]="selectedColor"
+            [value]="selectedColors[i]"
+            (change)="colorCoordinationService.setActiveColor(selectedColor)"
+          />
+          <select 
+            [(ngModel)]="selectedColors[i]"
+            (change)="onColorChange($event, i)"
           >
-            {{ color.viewValue }}
-          </option>
-        </select>
+            <option
+              *ngFor="let color of colorList"
+              [value]="color.value"
+              [disabled]="isColorAvailable(color.value, i)"
+            >
+              {{ color.viewValue }}
+            </option>
+          </select>
+        </div>
+        <div class="printView">
+          {{ selectedColors[i] }} ({{ getHexCode(selectedColors[i]) }})
+        </div>
       </td>
-      <td></td>
+      <td>
+        {{ colorCoordinationService.getSortedCoordsForColor(selectedColors[i]).join(', ') }}
+      </td>
     </tr>
   </table>
 </div>
