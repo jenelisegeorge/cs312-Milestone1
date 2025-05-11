@@ -76,6 +76,10 @@ export class ColorSelectionComponent implements OnInit{
   confirmingDelete: boolean = false;
   deleteError: string = '';
 
+  isValidHex(hex: string): boolean {
+  return /^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/.test(hex);
+  }
+
   addNewColor() {
     this.addError = '';
 
@@ -84,6 +88,11 @@ export class ColorSelectionComponent implements OnInit{
 
     if (!this.newColor.name || !this.newColor.hex) {
       this.addError = 'Name and hex value are required.';
+      return;
+    }
+
+    if (!this.isValidHex(this.newColor.hex)) {
+      this.addError = 'Hex value must be a valid hex color code (e.g. #ABC or #AABBCC).';
       return;
     }
 
@@ -123,6 +132,11 @@ export class ColorSelectionComponent implements OnInit{
 
     if (!this.editColor.name || !this.editColor.hex) {
       this.editError = 'Name and hex value are required.';
+      return;
+    }
+
+    if (!this.isValidHex(this.editColor.hex)) {
+      this.editError = 'Hex value must be a valid hex color code (e.g. #ABC or #AABBCC).';
       return;
     }
 
