@@ -98,4 +98,9 @@ getHexCode(color: string): string {
   return found ? found.hex : '';
 }
 
+getColorName (color: string): string {
+  const found = this.colorList.find(c => c.value === color);
+  return found ? found.viewValue : '';
+}
+
 }
