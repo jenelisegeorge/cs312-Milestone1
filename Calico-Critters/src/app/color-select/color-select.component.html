@@ -10,7 +10,7 @@
             [value]="selectedColors[i]"
             (change)="colorCoordinationService.setActiveColor(selectedColor)"
           />
-          <select 
+          <select
             [(ngModel)]="selectedColors[i]"
             (change)="onColorChange($event, i)"
           >
@@ -24,11 +24,17 @@
           </select>
         </div>
         <div class="printView">
-          {{ selectedColors[i] }} ({{ getHexCode(selectedColors[i]) }})
+          {{ getColorName(selectedColors[i]) }}({{
+            getHexCode(selectedColors[i])
+          }})
         </div>
       </td>
       <td>
-        {{ colorCoordinationService.getSortedCoordsForColor(selectedColors[i]).join(', ') }}
+        {{
+          colorCoordinationService
+            .getSortedCoordsForColor(selectedColors[i])
+            .join(", ")
+        }}
       </td>
     </tr>
   </table>
