@@ -100,13 +100,20 @@ export class ColorSelectionComponent implements OnInit{
       this.addError = 'Color name or hex value already exists.';
       return;
     }
+    this.http.post('https://cs.colostate.edu:4444/~baldwin2/api', {
+      color_name: this.newColor.name,
+      hex_value: this.newColor.hex
+    }).subscribe({
+      next: () => {
+        this.colors.push({
+          value: this.newColor.hex,
+          viewValue: this.newColor.name
+       });
+       this.newColor = { name: '', hex: '' };
+      }
+    })
 
-    this.colors.push({
-      value: this.newColor.hex,
-      viewValue: this.newColor.name
-    });
-
-    this.newColor = { name: '', hex: '' };
+   
   }
 
   startEdit(color: Color | null) {
@@ -120,60 +127,41 @@ export class ColorSelectionComponent implements OnInit{
   editSelectedColor() {
     if (!this.selectedEditColor) return;
     this.editError = '';
-
-    const nameExists = this.colors.some(c =>
-      c.viewValue.toLowerCase() === this.editColor.name.toLowerCase() &&
-      c !== this.selectedEditColor
-    );
-    const hexExists = this.colors.some(c =>
-      c.value.toLowerCase() === this.editColor.hex.toLowerCase() &&
-      c !== this.selectedEditColor
-    );
-
-    if (!this.editColor.name || !this.editColor.hex) {
-      this.editError = 'Name and hex value are required.';
-      return;
-    }
-
-    if (!this.isValidHex(this.editColor.hex)) {
-      this.editError = 'Hex value must be a valid hex color code (e.g. #ABC or #AABBCC).';
-      return;
-    }
-
-    if (nameExists || hexExists) {
-      this.editError = 'Color name or hex value already exists.';
-      return;
-    }
-
     this.selectedEditColor.viewValue = this.editColor.name;
     this.selectedEditColor.value = this.editColor.hex;
-
     this.selectedEditColor = null;
     this.editColor = { name: '', hex: '' };
+  
   }
 
   requestDeleteColor(color: Color | null) {
     if (!color) return;
-
-    
     this.deleteError = '';
 
-    if (this.colors.length <= 2) {
-      this.deleteError = 'You must keep at least two colors.';
+    if (this.colors.length <= 1) {
+      this.deleteError = 'You must keep at least one color.';
       return;
     }
-
     this.selectedDeleteColor = color;
     this.confirmingDelete = true;
   }
 
   confirmDeleteColor() {
-    if (!this.selectedDeleteColor) return;
+   if (!this.selectedDeleteColor) return;
 
-    this.colors = this.colors.filter(c => c !== this.selectedDeleteColor);
-    this.selectedDeleteColor = null;
-    this.confirmingDelete = false;
-    this.deleteError = '';
+  const colorName = this.selectedDeleteColor.viewValue;
+  this.http.post('https://cs.colostate.edu:4444/~baldwin2/api', {
+    color_name: colorName
+  }).subscribe({
+    next: () => {
+      this.colors = this.colors.filter(c => c.viewValue !== colorName);
+      this.selectedDeleteColor = null;
+      this.confirmingDelete = false;
+    },
+    error: (err) => {
+      console.error('Error deleting color', err);
+    }
+  });
   }
 
   cancelDelete() {

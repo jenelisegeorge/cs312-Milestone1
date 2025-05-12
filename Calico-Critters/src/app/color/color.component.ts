@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, Validators, FormGroup, FormControl, AbstractControl, ValidationErrors  } from '@angular/forms';
 import { Router } from '@angular/router';
 import {NgIf} from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-color',
@@ -9,16 +10,33 @@ import {NgIf} from '@angular/common';
   templateUrl: './color.component.html',
   styleUrl: './color.component.css'
 })
-export class ColorComponent {
+export class ColorComponent implements OnInit{
   formSubmitted = false;
+  colorCount = 0;
 
   colorForm = new FormGroup({
     rows: new FormControl<number | null>(null, [Validators.min(1), Validators.max(1000), Validators.required, this.numberCheck]),
     columns: new FormControl<number | null>(null, [Validators.min(1), Validators.max(702), Validators.required, this.numberCheck]),
-    colors: new FormControl<number | null>(null, [Validators.min(1), Validators.max(10), Validators.required, this.numberCheck]),
+    colors: new FormControl<number | null>(null, [Validators.min(1), Validators.required, this.numberCheck]),
   });
 
-  constructor(private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
+
+  ngOnInit(): void {
+    this.getColorCount();
+  }
+
+  getColorCount(): void {
+    this.http.get<{color_name: string; hex_value: string}[]>('https://cs.colostate.edu:4444/~baldwin2/api').subscribe({
+      next: data => {
+        this.colorCount = data.length;
+
+        const colorFormControl = this.colorForm.get('colors');
+        colorFormControl?.addValidators(Validators.max(this.colorCount));
+        colorFormControl?.updateValueAndValidity();
+      }
+    })
+  }
 
   submit() {
     this.formSubmitted = true;
