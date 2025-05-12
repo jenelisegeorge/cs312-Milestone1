@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ColorCoordinationService } from '../color-coordination/color-coordination.service';
+import { HttpClient } from '@angular/common/http';
 
 interface Color {
   value: string;
@@ -20,21 +21,10 @@ interface Color {
 
 
 
-export class ColorSelectComponent {
+export class ColorSelectComponent implements OnInit{
   selectedColor: string = '';
 
-  colorList: Color[] = [
-    { value: 'red', viewValue: 'Red', hex: '#FF0000' },
-    { value: 'orange', viewValue: 'Orange', hex: '#FFA500' },
-    { value: 'yellow', viewValue: 'Yellow', hex: '#FFFF00' },
-    { value: 'green', viewValue: 'Green', hex: '#008000' },
-    { value: 'blue', viewValue: 'Blue', hex: '#0000FF' },
-    { value: 'purple', viewValue: 'Purple', hex: '#800080' },
-    { value: 'grey', viewValue: 'Grey', hex: '#808080' },
-    { value: 'brown', viewValue: 'Brown', hex: '#A52A2A' },
-    { value: 'black', viewValue: 'Black', hex: '#000000' },
-    { value: 'teal', viewValue: 'Teal', hex: '#008080' }
-  ];
+  colorList: Color[] = [];
 
   rows: number = 0;
   columns: number = 2;
@@ -42,10 +32,17 @@ export class ColorSelectComponent {
   showTable: boolean = false;
   selectedColors: string[] = [];
 
-  constructor(private route: ActivatedRoute, public colorCoordinationService: ColorCoordinationService) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, public colorCoordinationService: ColorCoordinationService) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params: any) => {
+    this.http.get<{ color_name: string; hex_value: string }[]>('https://cs.colostate.edu:4444/~baldwin2/api').subscribe({
+      next: data => {
+        this.colorList = data.map(c => ({
+          value: c.hex_value,
+          viewValue: c.color_name,
+          hex: c.hex_value
+        }));
+        this.route.queryParams.subscribe((params: any) => {
 
       const rows = parseInt(params['rows'], 10);
       const columns = parseInt(params['columns'], 10);
@@ -58,13 +55,24 @@ export class ColorSelectComponent {
       if (!isNaN(colors)) {
         this.colors = colors;
       }
+       const availableColors = [...this.colorList.map(c => c.value)];
+        this.selectedColors = [];
+
+        for (let i = 0; i < this.colors; i++) {
+          const color = availableColors[i % availableColors.length];
+          this.selectedColors.push(color);
+        }
     });
 
-    for (let i = 0; i < this.colors; i++){
-      this.selectedColors[i] = this.colorList[i].value || '';
-    }
+      },
+      error: err => {
+        console.error('Failed loading colors, error:', err);
+      }
+      });
+  }
     
-  }  
+
+
 
   setDimensions(rows: number, columns: number): void {
     this.rows = rows;

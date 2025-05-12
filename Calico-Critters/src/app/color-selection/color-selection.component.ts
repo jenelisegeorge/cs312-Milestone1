@@ -100,13 +100,20 @@ export class ColorSelectionComponent implements OnInit{
       this.addError = 'Color name or hex value already exists.';
       return;
     }
+    this.http.post('https://cs.colostate.edu:4444/~baldwin2/api', {
+      color_name: this.newColor.name,
+      hex_value: this.newColor.hex
+    }).subscribe({
+      next: () => {
+        this.colors.push({
+          value: this.newColor.hex,
+          viewValue: this.newColor.name
+       });
+       this.newColor = { name: '', hex: '' };
+      }
+    })
 
-    this.colors.push({
-      value: this.newColor.hex,
-      viewValue: this.newColor.name
-    });
-
-    this.newColor = { name: '', hex: '' };
+   
   }
 
   startEdit(color: Color | null) {
@@ -144,12 +151,27 @@ export class ColorSelectionComponent implements OnInit{
       this.editError = 'Color name or hex value already exists.';
       return;
     }
-
-    this.selectedEditColor.viewValue = this.editColor.name;
-    this.selectedEditColor.value = this.editColor.hex;
-
+    this.http.put('https://cs.colostate.edu:4444/~baldwin2/api', {
+      original_name: this.selectedEditColor.viewValue,
+      color_name: this.editColor.name,
+      hex_value: this.editColor.hex
+    }).subscribe({
+      next: () => {
+        const index = this.colors.findIndex(c => c.value === this.selectedEditColor?.value);
+        if (index > -1) {
+          this.colors[index] = {
+            value: this.editColor.hex,
+            viewValue: this.editColor.name
+          };
+        }
     this.selectedEditColor = null;
     this.editColor = { name: '', hex: '' };
+     },
+      error: (err) => {
+        console.error('Error updating color', err);
+        this.editError = 'Failed to update the color.';
+      }
+    });
   }
 
   requestDeleteColor(color: Color | null) {
